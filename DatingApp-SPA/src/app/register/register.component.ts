@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
-import { error } from '@angular/compiler/src/util';
+
 
 @Component({
   selector: 'app-register',
@@ -10,6 +10,7 @@ import { error } from '@angular/compiler/src/util';
 export class RegisterComponent implements OnInit {
   // passing value from parent component, name has to match
   @Input() valuesFromHome: any;
+  // returning value to parent component
   @Output() cancelRegister = new EventEmitter();
   // empty object
   model: any = {};

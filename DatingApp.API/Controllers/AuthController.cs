@@ -12,7 +12,7 @@ using System.IdentityModel.Tokens.Jwt;
 
 namespace DatingApp.API.Controllers
 {
-    
+
     [Route("api/[controller]")]
     //http://localhost:5000/api/auth
     [ApiController]
@@ -33,8 +33,8 @@ namespace DatingApp.API.Controllers
             //change name to lowercase
             userForRegisterDto.Username = userForRegisterDto.Username.ToLower();
 
-            if(await _repo.UserExist(userForRegisterDto.Username))
-            //If userForRegisterDto exists, return bad request response
+            if (await _repo.UserExist(userForRegisterDto.Username))
+                //If userForRegisterDto exists, return bad request response
                 return BadRequest("Username already exists");
 
             var userToCreate = new User
@@ -43,17 +43,20 @@ namespace DatingApp.API.Controllers
             };
 
             var createdUser = await _repo.Register(userToCreate, userForRegisterDto.Password);
-                
-            return StatusCode(201);      
+
+            return StatusCode(201);
         }
 
         [HttpPost("login")]
 
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
         {
-           var userFromRepo = await _repo.Login(userForLoginDto.Username.ToLower(), userForLoginDto.Password);
 
-           if(userFromRepo == null)
+            throw new Exception("Computer says no");
+
+            var userFromRepo = await _repo.Login(userForLoginDto.Username.ToLower(), userForLoginDto.Password);
+
+            if (userFromRepo == null)
                 return Unauthorized("Username or password doesn't exist");
 
             var claims = new[]
@@ -77,12 +80,14 @@ namespace DatingApp.API.Controllers
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            return Ok( new {
+            return Ok(new
+            {
                 token = tokenHandler.WriteToken(token)
             });
-            
+
+
         }
 
-      
+
     }
 }
