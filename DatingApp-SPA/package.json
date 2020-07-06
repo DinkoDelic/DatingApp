@@ -19,8 +19,13 @@
     "@angular/platform-browser": "~10.0.0",
     "@angular/platform-browser-dynamic": "~10.0.0",
     "@angular/router": "~10.0.0",
+    "@auth0/angular-jwt": "^4.2.0",
+    "alertify.js": "^1.0.12",
+    "alertifyjs": "^1.13.1",
     "bootstrap": "^4.5.0",
+    "bootswatch": "^4.5.0",
     "font-awesome": "^4.7.0",
+    "ngx-bootstrap": "^5.6.1",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3"

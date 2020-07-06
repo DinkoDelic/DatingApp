@@ -1,29 +1,40 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
+  // url that we use in our login request
+  baseUrl = 'http://localhost:5000/api/auth/';
+  jwtHelper = new JwtHelperService();
+  decodedToken: any;
 
-// url that we use in our login request
-baseUrl = 'http://localhost:5000/api/auth/';
+  constructor(private http: HttpClient) {}
 
-constructor(private http: HttpClient) { }
+  login(model: any) {
+    return this.http.post(this.baseUrl + 'login', model).pipe(
+      map((response: any) => {
+        const user = response;
+        if (user) {
+          localStorage.setItem('token', user.token);
+        }
+      })
+    );
+  }
+ 
 
-login(model:any) {
-  return this.http.post(this.baseUrl + 'login', model).pipe
-  (map((response: any) => {
-      const user = response;
-      if (user) {
-        localStorage.setItem('token', user.token);
-      }
-    })
-  )
-}
-register(model:any) {
-  return this.http.post(this.baseUrl + 'register', model);
-}
+
+  register(model: any) {
+    return this.http.post(this.baseUrl + 'register', model);
+  }
+  // Checking if token is expired using JwtHelperService from auth0
+  loggedIn() {
+    const token = localStorage.getItem('token');
+    this.decodedToken = this.jwtHelper.decodeToken(token);
+    // returns true if token not expired/ false if it did
+    return !this.jwtHelper.isTokenExpired(token);
+  }
 }
