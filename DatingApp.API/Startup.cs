@@ -19,6 +19,7 @@ using System.Net;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using DatingApp.API.Helpers;
+using AutoMapper;
 
 namespace DatingApp.API
 {
@@ -37,11 +38,18 @@ namespace DatingApp.API
             //Order of services not too important.
             //Adding Data base context to our service and specifing which DBMS we are using(SQLite) and also which connection string (found in appsettings.json)
             services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(opt =>
+            {
+                opt.SerializerSettings.ReferenceLoopHandling =
+                Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            });
             //Adds Cors that allows Angular app to request data from API 
             services.AddCors();
+            //We need to specify which assembly we wanna use it with
+            services.AddAutoMapper(typeof(DatingRepository).Assembly);
             //Adding repository, using scoped which creates all the http requests inside a single instance(?)
             services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<IDatingRepository, DatingRepository>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options =>
                     {
