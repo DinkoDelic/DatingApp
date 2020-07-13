@@ -15,7 +15,7 @@
       "Photos": [
         {
           "url": "https://randomuser.me/api/portraits/women/3.jpg",
-          "isMain": true,
+          "Main": true,
           "description": "Non deserunt labore sunt ex laboris et adipisicing ullamco officia minim."
         }
       ]
@@ -36,7 +36,7 @@
       "Photos": [
         {
           "url": "https://randomuser.me/api/portraits/women/49.jpg",
-          "isMain": true,
+          "Main": true,
           "description": "Elit culpa eu excepteur ut elit tempor nulla duis dolore."
         }
       ]
@@ -57,7 +57,7 @@
       "Photos": [
         {
           "url": "https://randomuser.me/api/portraits/women/24.jpg",
-          "isMain": true,
+          "Main": true,
           "description": "Veniam dolore nisi magna laboris minim id pariatur officia."
         }
       ]
@@ -78,7 +78,7 @@
       "Photos": [
         {
           "url": "https://randomuser.me/api/portraits/women/74.jpg",
-          "isMain": true,
+          "Main": true,
           "description": "Veniam velit amet tempor laboris reprehenderit deserunt quis do veniam."
         }
       ]
@@ -99,7 +99,7 @@
       "Photos": [
         {
           "url": "https://randomuser.me/api/portraits/women/33.jpg",
-          "isMain": true,
+          "Main": true,
           "description": "Ipsum enim cillum ad nisi consequat cillum ipsum ullamco tempor."
         }
       ]
@@ -120,7 +120,7 @@
       "Photos": [
         {
           "url": "https://randomuser.me/api/portraits/men/90.jpg",
-          "isMain": true,
+          "Main": true,
           "description": "Irure cupidatat magna aute et dolore aliquip reprehenderit dolor irure."
         }
       ]
@@ -141,7 +141,7 @@
       "Photos": [
         {
           "url": "https://randomuser.me/api/portraits/men/96.jpg",
-          "isMain": true,
+          "Main": true,
           "description": "Magna duis consectetur sit ut commodo non eiusmod."
         }
       ]
@@ -162,7 +162,7 @@
       "Photos": [
         {
           "url": "https://randomuser.me/api/portraits/men/4.jpg",
-          "isMain": true,
+          "Main": true,
           "description": "Cupidatat veniam ea magna cillum velit minim non minim tempor ipsum excepteur."
         }
       ]
@@ -183,7 +183,7 @@
       "Photos": [
         {
           "url": "https://randomuser.me/api/portraits/men/76.jpg",
-          "isMain": true,
+          "Main": true,
           "description": "Amet officia enim pariatur mollit tempor in ut."
         }
       ]
@@ -204,7 +204,7 @@
       "Photos": [
         {
           "url": "https://randomuser.me/api/portraits/men/14.jpg",
-          "isMain": true,
+          "Main": true,
           "description": "Nulla nisi tempor sint cillum aliqua esse aute."
         }
       ]
