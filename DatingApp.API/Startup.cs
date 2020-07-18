@@ -45,6 +45,7 @@ namespace DatingApp.API
             });
             //Adds Cors that allows Angular app to request data from API 
             services.AddCors();
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
             //We need to specify which assembly we wanna use it with
             services.AddAutoMapper(typeof(DatingRepository).Assembly);
             //Adding repository, using scoped which creates all the http requests inside a single instance(?)
