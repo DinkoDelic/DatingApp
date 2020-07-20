@@ -16,7 +16,7 @@
     <!--*ngIf is a structual directive (changes the html dom structure in some way), marked with * in front-->
     <div *ngIf="loggedIn()" class="dropdown" dropdown>
       <span>
-        <img src="{{photoUrl}}" alt="">
+        <img src="{{photoUrl || '../../assets/user.png'}}" alt="">
       </span>
 
       <a class="dropdown-toggle text-light" dropdownToggle (click)="(false)">
