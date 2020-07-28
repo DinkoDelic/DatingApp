@@ -65,7 +65,7 @@ namespace DatingApp.API.Controllers
             //Check if the file is not empty
             if (file.Length > 0)
             {
-                //Using to close the file stream after it's done
+                //'Using' to close the file stream after it's done
                 using (var stream = file.OpenReadStream())
                 {
                     //Uploading image with specified params

@@ -6,6 +6,7 @@ import { NgForm } from '@angular/forms';
 import { UserService } from 'src/app/_services/user.service';
 
 import { AuthService } from 'src/app/_services/auth.service';
+import { Pagination, PaginatedResult } from 'src/app/_models/pagination';
 
 @Component({
   selector: 'app-member-edit',
@@ -13,12 +14,12 @@ import { AuthService } from 'src/app/_services/auth.service';
   styleUrls: ['./member-edit.component.css'],
 })
 export class MemberEditComponent implements OnInit {
-
   @ViewChild('editForm') editForm: NgForm;
+
   user: User;
+
   photoUrl: string;
   @HostListener('window:beforeunload', ['$event'])
-
   unloadNotification($event: any) {
     if (this.editForm.dirty) {
       $event.returnValue = true;
@@ -36,8 +37,11 @@ export class MemberEditComponent implements OnInit {
     this.route.data.subscribe((data) => {
       this.user = data['user'];
     });
-    this.authService.currentPhotoUrl.subscribe(photoUrl => (this.photoUrl = photoUrl));
+    this.authService.currentPhotoUrl.subscribe(
+      (photoUrl) => (this.photoUrl = photoUrl)
+    );
   }
+
   updateUser() {
     this.userService
       .editUser(this.authService.decodedToken.nameid, this.user)

@@ -5,17 +5,17 @@
     </div>
     <div class="col-sm-8">
       <div class="alert alert-info" *ngIf="editForm.dirty">
-        <strong>Information: </strong>You have made changes. Any unsaved changes will be lost!
+        <strong>Information: </strong>You have made changes. Any unsaved changes
+        will be lost!
       </div>
     </div>
   </div>
   <div class="row">
     <div class="col-sm-4">
       <div class="card">
-        
         <img
           class="card-img-top img-thumbnail"
-          src="{{photoUrl || '../../../assets/user.png'}}"
+          src="{{ photoUrl || '../../../assets/user.png' }}"
           alt="{{ user.knownAs }}"
         />
         <div class="card-body">
@@ -29,15 +29,21 @@
           </div>
           <div>
             <strong>Last active:</strong>
-            <p>{{ user.lastActive | timeago}}</p>
+            <p>{{ user.lastActive | timeago }}</p>
           </div>
           <div>
             <strong>Member since:</strong>
-            <p>{{ user.created | date: 'mediumDate'}}</p>
+            <p>{{ user.created | date: "mediumDate" }}</p>
           </div>
         </div>
         <div class="card-footer">
-          <button [disabled]="!editForm.dirty" form="editForm" class="btn btn-success btn-block">Save changes</button>
+          <button
+            [disabled]="!editForm.dirty"
+            form="editForm"
+            class="btn btn-success btn-block"
+          >
+            Save changes
+          </button>
         </div>
       </div>
     </div>
@@ -87,10 +93,8 @@
             </form>
           </tab>
           <tab heading="Edit Photos">
-            <app-photo-editor [photos]="user.photos" (getMemberPhotoChange)="updateMainPhoto($event)"></app-photo-editor>
+            <app-photo-editor
+              [photos]="user.photos"
+              (getMemberPhotoChange)="updateMainPhoto($event)"
+            ></app-photo-editor>
           </tab>
-        </tabset>
-      </div>
-    </div>
-  </div>
-</div>
