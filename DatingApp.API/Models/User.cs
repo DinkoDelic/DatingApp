@@ -28,6 +28,11 @@ namespace DatingApp.API.Models
         public string City { get; set; }
         public string Country { get; set; }
         public ICollection<Photo> Photos { get; set; }
+
+        // EF doesn't support many to many relationship so we must implement two one to many relationships
+        public ICollection<Like> Likers { get; set; }
+
+        public ICollection<Like> Likees { get; set; }
         
     }
 }

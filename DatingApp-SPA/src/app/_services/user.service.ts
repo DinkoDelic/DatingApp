@@ -17,8 +17,10 @@ export class UserService {
   getUsers(
     page?,
     itemsPerPage?,
-    userParams?
+    userParams?,
+    likesParam?
   ): Observable<PaginatedResult<User[]>> {
+
     const paginatedResult: PaginatedResult<User[]> = new PaginatedResult<
       User[]
     >();
@@ -35,6 +37,13 @@ export class UserService {
       params = params.append('maxAge', userParams.maxAge);
       params = params.append('gender', userParams.gender);
       params = params.append('orderBy', userParams.orderBy);
+    }
+
+    if (likesParam === 'Likers') {
+      params = params.append('likers', 'true');
+    }
+    if (likesParam === 'Likees') {
+      params = params.append('likees', 'true');
     }
 
     return this.http
@@ -61,7 +70,7 @@ export class UserService {
   editUser(id: number, user: User) {
     return this.http.put(this.baseUrl + 'users/' + id, user);
   }
-  // Because this is POSt request we are required to send an object but we can just sent an empty object({}) to satisfty that.
+  // Because this is POST request we are required to send an object but we can just sent an empty object({}) to satisfty that.
   setMainPhoto(userId: number, photoId: number) {
     return this.http.post(
       this.baseUrl + 'users/' + userId + '/photos/' + photoId + '/setMain',
@@ -72,6 +81,13 @@ export class UserService {
   deletePhoto(userId: number, photoId: number) {
     return this.http.delete(
       this.baseUrl + 'users/' + userId + '/photos/' + photoId
+    );
+  }
+
+  sendLike(id: number, recipientId: number) {
+    return this.http.post(
+      this.baseUrl + 'users/' + id + '/like/' + recipientId,
+      {}
     );
   }
 }

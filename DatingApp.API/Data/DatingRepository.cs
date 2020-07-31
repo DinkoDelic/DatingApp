@@ -26,6 +26,11 @@ namespace DatingApp.API.Data
             _context.Remove(entity);
         }
 
+        public async Task<Like> GetLike(int userId, int recipientId)
+        {
+            return await _context.Likes.FirstOrDefaultAsync(u => u.LikerId == userId && u.LikeeId == recipientId);
+        }
+
         public async Task<Photo> GetMainPhoto(int userId)
         {
             var photo = await _context.Photos.FirstOrDefaultAsync(p => p.UserId == userId && p.Main == true);
@@ -49,10 +54,25 @@ namespace DatingApp.API.Data
             var users = _context.Users.Include(p => p.Photos)
                 .OrderByDescending(u => u.LastActive).AsQueryable();
 
+            //Paging preferences excluding logged user and same gender
             users = users.Where(u => u.Id != userParams.UserId);
             users = users.Where(u => u.Gender == userParams.Gender);
 
-            if(userParams.MinAge != 18 || userParams.MaxAge != 99)
+            // Using GetUserLikes method bellow to return likers or likees
+            if (userParams.Likers)
+            {
+                var userLikers = await GetUserLikes(userParams.UserId, userParams.Likers);
+                users = users.Where(u => userLikers.Contains(u.Id));
+            }
+
+            if (userParams.Likees)
+            {
+                 var userLikees = await GetUserLikes(userParams.UserId, userParams.Likers);
+                 users = users.Where(u => userLikees.Contains(u.Id));
+            }
+
+            //Age Preferences
+            if (userParams.MinAge != 18 || userParams.MaxAge != 99)
             {
                 // Calculation to determine age based on current year 
                 var minDob = DateTime.Today.AddYears(-userParams.MaxAge - 1);
@@ -61,9 +81,10 @@ namespace DatingApp.API.Data
                 users = users.Where(u => u.DateOfBirth >= minDob && u.DateOfBirth <= maxDob);
             }
 
-            if(!string.IsNullOrEmpty(userParams.OrderBy))
+            //Last active or newest member sorting
+            if (!string.IsNullOrEmpty(userParams.OrderBy))
             {
-                switch(userParams.OrderBy)
+                switch (userParams.OrderBy)
                 {
                     case "created":
                         users = users.OrderByDescending(u => u.Created);
@@ -74,8 +95,26 @@ namespace DatingApp.API.Data
                 }
             }
 
-            return await PagedList<User>.CreateAsync(users, userParams.PageNumber, userParams.PageSize) ;
+            return await PagedList<User>.CreateAsync(users, userParams.PageNumber, userParams.PageSize);
 
+        }
+
+        private async Task<IEnumerable<int>> GetUserLikes(int id, bool likers)
+        {
+            // Returns logged in user including liker and likee collections
+            var user = await _context.Users.Include(x => x.Likers).Include(x => x.Likees).FirstOrDefaultAsync(u => u.Id == id);
+            
+            // If true return likers else return likees
+            if(likers)
+            {
+                // Returns all users that liked logged in user
+                 return user.Likers.Where(u => u.LikeeId == id).Select(i => i.LikerId);
+            }
+            else
+            {
+                // Returns all users that logged in user liked
+                return user.Likees.Where(u => u.LikerId == id).Select(i => i.LikeeId);
+            }
         }
 
         public async Task<bool> SaveAll()

@@ -10,6 +10,7 @@ import { MemberListResolver } from './_resolvers/member-list.resolver';
 import { MemberEditComponent } from './members/member-edit/member-edit.component';
 import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
+import { ListsResolver } from './_resolvers/lists.resolver';
 
 // angular router operates on a first match wins system. Order of paths important( we can't have wildcard path on top)
 export const appRoutes: Routes = [
@@ -25,7 +26,7 @@ export const appRoutes: Routes = [
             {path: 'member/edit', component: MemberEditComponent,
             resolve: {user: MemberEditResolver}, canDeactivate:  [PreventUnsavedChanges]},
             {path: 'messages', component: MessagesComponent},
-            {path: 'lists', component: ListsComponent}
+            {path: 'lists', component: ListsComponent, resolve: {users: ListsResolver}}
         ]
     },
     // wildcard path that redirects to home when the url path doesn't match any of the previous options
