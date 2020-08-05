@@ -75,6 +75,7 @@ export class RegisterComponent implements OnInit {
   register() {
     if (this.registerForm.valid)
     {
+      // Assigning form group values as an object to user
       this.user = Object.assign({}, this.registerForm.value);
      
 
