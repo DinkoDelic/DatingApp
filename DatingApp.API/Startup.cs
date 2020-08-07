@@ -31,13 +31,27 @@ namespace DatingApp.API
         }
 
         public IConfiguration Configuration { get; }
+        //In development we use SQLite
+        public void ConfigureDevelopmentServices(IServiceCollection services)
+        {
+            //Adding Data base context to our service and specifing which DBMS we are using(SQLite) and also which connection string (found in appsettings.json)
+            services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
+            ConfigureServices(services);
+        }
+        // In production we use MySQL or SQL Server
+        public void ConfigureProductionServices(IServiceCollection services)
+        {
+            //Adding Data base context to our service and specifing which DBMS we are using(SQLite) and also which connection string (found in appsettings.json)
+            services.AddDbContext<DataContext>(x => x.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
+
+            ConfigureServices(services);
+        }
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             //Order of services not too important.
-            //Adding Data base context to our service and specifing which DBMS we are using(SQLite) and also which connection string (found in appsettings.json)
-            services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddControllers().AddNewtonsoftJson(opt =>
             {
                 opt.SerializerSettings.ReferenceLoopHandling =
@@ -77,7 +91,7 @@ namespace DatingApp.API
             }
             else
             {
-            //Global exception handler for production 
+                //Global exception handler for production 
                 app.UseExceptionHandler(builder =>
                 {
                     builder.Run(async context =>
@@ -86,7 +100,7 @@ namespace DatingApp.API
 
                         var error = context.Features.Get<IExceptionHandlerFeature>();
 
-                        if(error != null)
+                        if (error != null)
                         {
                             context.Response.AddAplicationError(error.Error.Message);
                             await context.Response.WriteAsync(error.Error.Message);
@@ -105,9 +119,14 @@ namespace DatingApp.API
 
             app.UseAuthorization();
 
+            // looks for index.html inside our wwwroot folder
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapFallbackToController("Index", "Fallback");
             });
 
 
