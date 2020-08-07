@@ -15,7 +15,7 @@ export class AuthService {
   jwtHelper = new JwtHelperService();
   currentUser: User;
   decodedToken: any;
-  // Behaviour subject needs to have initial value
+  // Behaviour subject needs to have initial value, stock photo for first time users
   photoUrl = new BehaviorSubject<string>('../../assets/user.png');
   currentPhotoUrl = this.photoUrl.asObservable();
 
