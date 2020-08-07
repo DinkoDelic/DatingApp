@@ -8,6 +8,7 @@ import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class ListsResolver implements Resolve<User[]> {
+  
   likesParam = 'Likers';
 
   constructor(
@@ -18,7 +19,7 @@ export class ListsResolver implements Resolve<User[]> {
 
   resolve(route: ActivatedRouteSnapshot): Observable<User[]> {
     return this.userService.getUsers(null, null, null, this.likesParam).pipe(
-      catchError((error) => {
+      catchError(() => {
         this.alertify.error('Problem retrieving data');
         this.router.navigate(['/home']);
         return of(null);

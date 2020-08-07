@@ -31,24 +31,17 @@ export class MessagesComponent implements OnInit {
   }
 
   loadMessages() {
-    this.messages.forEach((m) => {
-      m.recipientPhotoUrl = null;
-      m.senderPhotoUrl = null;
-      m.recipientKnownAs = null;
-      m.senderKnownAs = null;
-    });
-
     this.userService
       .getMessages(
         this.authService.decodedToken.nameid,
-        this.pagination.curentPage,
+        this.pagination.currentPage,
         this.pagination.itemsPerPage,
         this.messageContainer
       )
       .subscribe(
         (res: PaginatedResult<Message[]>) => {
           this.messages = res.result;
-          // this.pagination = res.pagination;
+          this.pagination = res.pagination;
         },
         (error) => {
           this.alertify.error(error);
@@ -75,7 +68,7 @@ export class MessagesComponent implements OnInit {
   }
 
   pageChanged(event: any): void {
-    this.pagination.curentPage = event.page;
+    this.pagination.currentPage = event.page;
     this.loadMessages();
   }
 }

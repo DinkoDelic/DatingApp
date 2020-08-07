@@ -53,7 +53,7 @@ export class UserService {
           // User list
           paginatedResult.result = response.body;
           // Pagination parameters
-          if (response.headers.get('Pagination') !== null) {
+          if (response.headers.get('Pagination') != null) {
             paginatedResult.pagination = JSON.parse(
               response.headers.get('Pagination')
             );

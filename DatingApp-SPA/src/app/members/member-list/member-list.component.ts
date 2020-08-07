@@ -47,18 +47,18 @@ export class MemberListComponent implements OnInit {
   }
 
   pageChanged(event: any): void {
-    this.pagination.curentPage = event.page;
+    this.pagination.currentPage = event.page;
     this.loadUsers();
     
   }
 
   loadUsers() {
     this.userService
-      .getUsers(this.pagination.curentPage, this.pagination.itemsPerPage, this.userParams)
+      .getUsers(this.pagination.currentPage, this.pagination.itemsPerPage, this.userParams)
       .subscribe(
         (res: PaginatedResult<User[]>) => {
           this.users = res.result;
-          // this.pagination = res.pagination;
+          this.pagination = res.pagination;
         },
         (error) => {
           this.alertify.error(error);

@@ -15,14 +15,14 @@
           </span>
           <div class="chat-body">
             <div class="header">
-              <strong class="primary-font">{{ message.senderKnownAs }} </strong>
+              <strong class="primary-font ml-2">{{ message.senderKnownAs }} </strong>
               <small class="text-muted float-right">
                 <span class="fa fa-clock-o"> {{
                   message.messageSent | timeago
                 }}</span>
               </small>
             </div>
-            <p>{{ message.content }}</p>
+            <p class="ml-5">{{ message.content }}</p>
           </div>
         </div>
         <!-- to me -->
@@ -36,7 +36,7 @@
           </span>
           <div class="chat-body">
             <div class="header">
-              <strong class="primary-font float-right"> {{
+              <strong class="primary-font float-right mr-2"> {{
                 message.senderKnownAs
               }}</strong>
               <small class="text-muted">
