@@ -1,10 +1,45 @@
 <div class="containter mt-5">
-  <div *ngIf="!registerMode" style="text-align: center">
+  <div *ngIf="!registerMode" style="text-align: center;">
     <h1>Find your match</h1>
-    <p class="lead">Come on in to view your matches... All you need to do is sign up!</p>
+    <p class="lead">
+      Come on in to view your matches... All you need to do is sign up!
+    </p>
     <div class="text-center">
-      <button class="btn btn-primary btn-lg mr-2" (click)="registerToggle()">Register</button>
-      <button class="btn btn-info btn-lg">Learn more</button>
+      <button class="btn btn-primary btn-lg mr-2" (click)="registerToggle()">
+        Register
+      </button>
+      <button class="btn btn-info btn-lg" (click)="learnMore()">
+        Learn more!
+      </button>
+    </div>
+    <div
+    class="container mt-3"
+      *ngIf="infoMessage"
+    >
+      <alert type="success" style="padding-bottom: -5px; ">
+        <strong>Thanks for checking out my app!</strong>
+        <p>
+          Browse it by registering or log in as existing demo user,<br>
+          username: Lola, password: password.
+        </p>
+      </alert>
+      <alert type="info">
+        <p>
+          This is a single page application made using Angular 9 for front-end development and Bootstrap as CSS framework.
+        </p>
+        <p>
+          For the API I used ASP.NET C# created with MVC pattern, as well as
+          Entity Framework and LINQ to connect to my SQL Server database.
+        </p>
+      </alert>
+      <alert type="info">
+        <p>
+          The app features: fully implemented messaging system between users,
+          customizable user profiles including photo upload, ability to see
+          other users as well as search for users based on age and gender, like
+          feature and more!
+        </p>
+      </alert>
     </div>
   </div>
 
@@ -12,9 +47,10 @@
     <div class="row justify-content-center">
       <div class="col-4">
         <!--importing values from parent component to child (home to register)-->
-        <app-register (cancelRegister)= "cancelRegisterMode($event)"></app-register>
+        <app-register
+          (cancelRegister)="cancelRegisterMode($event)"
+        ></app-register>
       </div>
     </div>
   </div>
 </div>
-

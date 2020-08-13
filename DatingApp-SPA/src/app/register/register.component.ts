@@ -26,13 +26,22 @@ export class RegisterComponent implements OnInit {
   user: User;
   registerForm: FormGroup;
   bsConfig: Partial<BsDatepickerConfig>;
+  minDate: Date;
+  maxDate: Date;
 
   constructor(
     private authService: AuthService,
     private alertify: AlertifyService,
     private fb: FormBuilder,
     private router: Router
-  ) {}
+  ) 
+  {
+    // Sets minimun date to 118 years ago an earliest date to 18 years ago
+    this.minDate = new Date();
+    this.maxDate = new Date();
+    this.minDate.setFullYear(this.minDate.getFullYear() - 118);
+    this.maxDate.setFullYear(this.maxDate.getFullYear() - 18 );
+  }
 
   ngOnInit() {
     (this.bsConfig = {

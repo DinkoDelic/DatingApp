@@ -19,6 +19,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { JwtModule } from '@auth0/angular-jwt';
 import { TimeagoModule } from 'ngx-timeago';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { AlertModule } from 'ngx-bootstrap/alert';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -38,6 +39,7 @@ import { AlertifyService } from './_services/alertify.service';
 import { AuthGuard } from './_guards/auth.guard';
 import { UserService } from './_services/user.service';
 import { ListsResolver } from './_resolvers/lists.resolver';
+
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -70,6 +72,7 @@ export function tokenGetter() {
     ButtonsModule.forRoot(),
     TabsModule.forRoot(),
     RouterModule.forRoot(appRoutes),
+    AlertModule.forRoot(),
     NgxGalleryModule,
     FileUploadModule,
     TimeagoModule.forRoot(),

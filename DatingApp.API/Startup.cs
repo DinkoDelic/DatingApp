@@ -35,7 +35,7 @@ namespace DatingApp.API
         public void ConfigureDevelopmentServices(IServiceCollection services)
         {
             //Adding Data base context to our service and specifing which DBMS we are using(SQLite) and also which connection string (found in appsettings.json)
-            services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             ConfigureServices(services);
         }
@@ -92,24 +92,24 @@ namespace DatingApp.API
             else
             {
                 //Global exception handler for production 
-                // app.UseExceptionHandler(builder =>
-                // {
-                //     builder.Run(async context =>
-                //     {
-                //         context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                app.UseExceptionHandler(builder =>
+                {
+                    builder.Run(async context =>
+                    {
+                        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
-                //         var error = context.Features.Get<IExceptionHandlerFeature>();
+                        var error = context.Features.Get<IExceptionHandlerFeature>();
 
-                //         if (error != null)
-                //         {
-                //             context.Response.AddAplicationError(error.Error.Message);
-                //             await context.Response.WriteAsync(error.Error.Message);
-                //         }
-                //     });
-                // });
+                        if (error != null)
+                        {
+                            context.Response.AddAplicationError(error.Error.Message);
+                            await context.Response.WriteAsync(error.Error.Message);
+                        }
+                    });
+                });
                 app.UseHsts();
             }
-            app.UseDeveloperExceptionPage();
+            
             app.UseHttpsRedirection();
 
             app.UseRouting();

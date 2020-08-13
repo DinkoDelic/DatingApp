@@ -7,14 +7,14 @@
         <a class="nav-link" [routerLink]="['/members']">Matches </a>
       </li>
       <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" [routerLink]="['/lists']">Lists</a>
+        <a class="nav-link" [routerLink]="['/lists']">Likes</a>
       </li>
       <li class="nav-item" routerLinkActive="active">
         <a class="nav-link" [routerLink]="['/messages']">Messages</a>
       </li>
     </ul>
     <!--*ngIf is a structual directive (changes the html dom structure in some way), marked with * in front-->
-    <div *ngIf="loggedIn()" class="dropdown" dropdown>
+    <div *ngIf="loggedIn()" class="dropdown mt-2" dropdown>
       <span>
         <img src="{{photoUrl || '../../assets/user.png'}}" alt="">
       </span>

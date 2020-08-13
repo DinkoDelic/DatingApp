@@ -1,4 +1,8 @@
 .container{
-    max-width: 85%;
-    
+    max-width: 85%;   
+}
+@media(min-width: 576px){
+    .lastactive-newmember{
+        float: left;
+    }
 }
